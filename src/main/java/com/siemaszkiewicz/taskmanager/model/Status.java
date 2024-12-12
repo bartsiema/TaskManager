@@ -2,6 +2,10 @@ package com.siemaszkiewicz.taskmanager.model;
 
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "statuses", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name", "user_id"})
+})
 public class Status {
 
     @Id

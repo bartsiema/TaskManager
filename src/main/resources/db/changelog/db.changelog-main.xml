@@ -8,4 +8,6 @@
 
     <include file="db.changelog-users.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-categories.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-statuses.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-tasks.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
