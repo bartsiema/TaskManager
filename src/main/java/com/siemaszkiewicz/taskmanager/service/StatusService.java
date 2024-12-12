@@ -12,4 +12,5 @@ public interface StatusService {
     Optional<Status> getStatusByIdAndUser(Long id, User user);
     Optional<Status> getStatusByNameAndUser(String name, User user);
     void deleteStatus(Status status);
+    boolean canDeleteStatus(Status status);
 }
