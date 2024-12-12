@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Statuses</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <h2>Your Statuses</h2>
+    <a th:href="@{/statuses/create}" class="btn btn-primary mb-3">Create New Status</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="st : ${statuses}">
+            <td th:text="${st.name}"></td>
+            <td>
+                <a th:href="@{'/statuses/edit/' + ${st.id}}" class="btn btn-secondary btn-sm">Edit</a>
+                <a th:href="@{'/statuses/delete/' + ${st.id}}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure you want to delete this status?');">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${param.error}">
+        <div class="alert alert-danger" th:if="${param.error=='exists'}">Status already exists.</div>
+        <div class="alert alert-danger" th:if="${param.error=='inuse'}">Status is currently in use by tasks.</div>
+    </div>
+</div>
+</body>
+</html>
