@@ -58,7 +58,6 @@ public class TaskController {
         User user = getCurrentUser(userDetails);
         model.addAttribute("task", new Task());
         model.addAttribute("categories", categoryService.getCategoriesByUser(user));
-        // Load statuses from the database instead of using an enum
         model.addAttribute("statuses", statusService.getStatusesByUser(user));
         return "tasks/create";
     }
@@ -92,7 +91,6 @@ public class TaskController {
 
         model.addAttribute("task", task);
         model.addAttribute("categories", categoryService.getCategoriesByUser(user));
-        // Load statuses from the database
         model.addAttribute("statuses", statusService.getStatusesByUser(user));
         return "tasks/edit";
     }
