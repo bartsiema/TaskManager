@@ -39,6 +39,9 @@ public class CategoryController {
                                  @AuthenticationPrincipal UserDetails userDetails) {
         User user = getCurrentUser(userDetails);
         category.setUser(user);
+        if (categoryService.existsByNameAndUser(category.getName(), user)) {
+            return "redirect:/categories?error";
+        }
         categoryService.saveCategory(category);
         return "redirect:/categories";
     }
@@ -69,6 +72,11 @@ public class CategoryController {
         User user = getCurrentUser(userDetails);
         Category category = categoryService.getCategoryByIdAndUser(id, user)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + id));
+
+        if (categoryService.canDeleteCategory(category)) {
+            return "redirect:/categories?error";
+        }
+
         categoryService.deleteCategory(category);
         return "redirect:/categories";
     }

@@ -81,6 +81,10 @@ public class StatusController {
         Status status = statusService.getStatusByIdAndUser(id, user)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Status Id: " + id));
 
+        if (!statusService.canDeleteStatus(status)) {
+            return "redirect:/statuses?error";
+        }
+
         statusService.deleteStatus(status);
         return "redirect:/statuses";
     }

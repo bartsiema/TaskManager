@@ -15,6 +15,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private TaskService taskService;
+
     @Override
     public List<Category> getCategoriesByUser(User user) {
         return categoryRepository.findByUser(user);
@@ -36,7 +39,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> getCategoryByNameAndUser(String name, User user) {
-        return categoryRepository.findByNameAndUser(name, user);
+    public boolean existsByNameAndUser(String name, User user) {
+        return categoryRepository.existsByNameAndUser(name, user);
+    }
+
+    @Override
+    public boolean canDeleteCategory(Category category) {
+        return !taskService.getTasksByUserAndCategory(category.getUser(), category).isEmpty();
     }
 }

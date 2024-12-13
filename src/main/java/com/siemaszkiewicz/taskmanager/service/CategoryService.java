@@ -11,5 +11,6 @@ public interface CategoryService {
     Category saveCategory(Category category);
     Optional<Category> getCategoryByIdAndUser(Long id, User user);
     void deleteCategory(Category category);
-    Optional<Category> getCategoryByNameAndUser(String name, User user);
+    boolean existsByNameAndUser(String name, User user);
+    boolean canDeleteCategory(Category category);
 }
